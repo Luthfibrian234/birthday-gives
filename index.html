@@ -10,13 +10,13 @@ body{
 font-family:'Comic Sans MS', cursive;
 text-align:center;
 background:linear-gradient(135deg,#ffb6d9,#ffcce6,#ffe6f2);
-height:100vh;
+min-height:100vh;
 margin:0;
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-overflow:hidden;
+overflow-x:hidden;
 }
 
 /* SPARKLE BACKGROUND */
@@ -45,14 +45,12 @@ padding:40px;
 border-radius:25px;
 box-shadow:0 15px 40px rgba(0,0,0,0.15);
 max-width:900px;
+width:90%;
 z-index:2;
-animation:floatCard 3s ease-in-out infinite alternate;
+position:relative;
 }
 
-@keyframes floatCard{
-0%{transform:translateY(0)}
-100%{transform:translateY(-6px)}
-}
+/* BUTTON */
 
 button{
 padding:10px 20px;
@@ -80,7 +78,21 @@ width:220px;
 margin:10px auto;
 }
 
-/* PASSWORD RANDOM PHOTOS */
+/* PASSWORD DECOR */
+
+.decor{
+position:absolute;
+font-size:26px;
+opacity:0.6;
+animation:floatDecor 6s ease-in-out infinite alternate;
+}
+
+@keyframes floatDecor{
+0%{transform:translateY(0)}
+100%{transform:translateY(-20px)}
+}
+
+/* RANDOM PHOTOS */
 
 .random-photo{
 position:absolute;
@@ -89,20 +101,13 @@ height:70px;
 border-radius:50%;
 object-fit:cover;
 opacity:0.9;
-animation:spinPhoto 15s linear infinite;
-}
-
-@keyframes spinPhoto{
-0%{transform:rotate(0)}
-100%{transform:rotate(360deg)}
 }
 
 /* MEMORY SLIDER */
 
 .slider{
 overflow:hidden;
-width:90vw;
-max-width:1000px;
+width:100%;
 margin:auto;
 }
 
@@ -112,16 +117,11 @@ animation:scroll 25s linear infinite;
 }
 
 .slide-track img{
-width:220px;
-height:220px;
+width:200px;
+height:200px;
 object-fit:cover;
 border-radius:20px;
 margin:10px;
-transition:0.4s;
-}
-
-.slide-track img:hover{
-transform:scale(1.1) rotate(-2deg);
 }
 
 @keyframes scroll{
@@ -200,7 +200,6 @@ box-shadow:0 15px 40px rgba(0,0,0,0.25);
 .final-title{
 font-size:34px;
 color:#ff4d88;
-text-shadow:0 0 10px pink;
 }
 
 </style>
@@ -214,22 +213,14 @@ text-shadow:0 0 10px pink;
 <source src="music.mp3">
 </audio>
 
-<button onclick="playMusic()">🎵 Start Music</button>
-
-<!-- RANDOM PASSWORD PHOTOS -->
-
-<img src="fotor1.jpeg" class="random-photo" style="top:10%;left:5%">
-<img src="fotor2.jpeg" class="random-photo" style="top:20%;left:80%">
-<img src="fotor3.jpeg" class="random-photo" style="top:70%;left:10%">
-<img src="fotor4.jpeg" class="random-photo" style="top:75%;left:85%">
-<img src="fotor5.jpeg" class="random-photo" style="top:40%;left:90%">
-<img src="fotor6.jpeg" class="random-photo" style="top:50%;left:5%">
-<img src="fotor7.jpeg" class="random-photo" style="top:15%;left:40%">
-<img src="fotor8.jpeg" class="random-photo" style="top:65%;left:55%">
-
-<!-- PASSWORD -->
+<!-- PASSWORD PAGE -->
 
 <div class="card" id="login">
+
+<div class="decor" style="top:-10px;left:-20px">💖</div>
+<div class="decor" style="top:-10px;right:-20px">✨</div>
+<div class="decor" style="bottom:-10px;left:-20px">🎀</div>
+<div class="decor" style="bottom:-10px;right:-20px">💗</div>
 
 <h2>Birthday Surprise 🎂</h2>
 
@@ -244,6 +235,16 @@ text-shadow:0 0 10px pink;
 <p id="error"></p>
 
 </div>
+
+
+<!-- RANDOM PASSWORD PHOTOS -->
+
+<img src="foto1.jpeg" class="random-photo" style="top:10%;left:5%">
+<img src="foto2.jpeg" class="random-photo" style="top:20%;left:80%">
+<img src="foto3.jpeg" class="random-photo" style="top:70%;left:10%">
+<img src="foto4.jpeg" class="random-photo" style="top:75%;left:85%">
+<img src="foto5.jpeg" class="random-photo" style="top:40%;left:90%">
+<img src="foto6.jpeg" class="random-photo" style="top:50%;left:5%">
 
 
 <!-- MENU -->
@@ -276,6 +277,7 @@ text-shadow:0 0 10px pink;
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
 <img src="foto3.jpeg">
+<img src="foto4.jpeg">
 <img src="foto5.jpeg">
 <img src="foto6.jpeg">
 <img src="foto7.jpeg">
@@ -284,6 +286,7 @@ text-shadow:0 0 10px pink;
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
 <img src="foto3.jpeg">
+<img src="foto4.jpeg">
 <img src="foto5.jpeg">
 <img src="foto6.jpeg">
 <img src="foto7.jpeg">
@@ -367,22 +370,19 @@ and many beautiful moments together with me ❤️
 </div>
 
 <p style="margin-top:20px;font-size:22px">
-
 I Love You So Much 💖
-
 </p>
 
 </div>
 
 
-
 <script>
 
-/* MUSIC */
+/* MUSIC FIX */
 
-function playMusic(){
+document.body.addEventListener("click",function(){
 document.getElementById("bgmusic").play()
-}
+},{once:true})
 
 /* PASSWORD */
 
@@ -432,6 +432,7 @@ noBtn.addEventListener("mouseover",function(){
 let x=Math.random()*window.innerWidth
 let y=Math.random()*window.innerHeight
 
+noBtn.style.position="absolute"
 noBtn.style.left=x+"px"
 noBtn.style.top=y+"px"
 
@@ -458,6 +459,10 @@ clearInterval(timer)
 document.getElementById("countdown").classList.add("hidden")
 document.getElementById("final").classList.remove("hidden")
 
+/* HIDE RANDOM PHOTOS */
+
+document.querySelectorAll(".random-photo").forEach(e=>e.style.display="none")
+
 }
 
 },1000)
@@ -481,9 +486,9 @@ document.body.appendChild(heart)
 
 setTimeout(()=>heart.remove(),6000)
 
-},800)
+},900)
 
-/* GLOBAL CONFETTI */
+/* CONFETTI */
 
 setInterval(()=>{
 
@@ -501,7 +506,7 @@ document.body.appendChild(confetti)
 
 setTimeout(()=>confetti.remove(),5000)
 
-},600)
+},700)
 
 </script>
 

@@ -207,8 +207,9 @@ color:#ff4d88;
 
 <body>
 
-<audio id="bgmusic" loop>
-<source src="music.mp3">
+<!-- AUDIO FIX -->
+<audio id="bgmusic" loop preload="auto">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PASSWORD PAGE -->
@@ -234,16 +235,12 @@ color:#ff4d88;
 
 </div>
 
-<!-- RANDOM PHOTOS (sudah dipindah supaya tidak nutup card) -->
-
 <img src="fotor1.jpeg" class="random-photo" style="top:5%;left:5%">
 <img src="fotor2.jpeg" class="random-photo" style="top:5%;right:5%">
 <img src="fotor3.jpeg" class="random-photo" style="bottom:5%;left:5%">
 <img src="fotor4.jpeg" class="random-photo" style="bottom:5%;right:5%">
 <img src="fotor5.jpeg" class="random-photo" style="top:45%;left:2%">
 <img src="fotor6.jpeg" class="random-photo" style="top:45%;right:2%">
-
-<!-- MENU -->
 
 <div class="card hidden" id="menu">
 
@@ -259,9 +256,6 @@ color:#ff4d88;
 </div>
 
 </div>
-
-
-<!-- MEMORIES -->
 
 <div class="card hidden" id="memories">
 
@@ -297,9 +291,6 @@ color:#ff4d88;
 
 </div>
 
-
-<!-- JOURNAL -->
-
 <div class="card hidden" id="journal">
 
 <h2>About You 📄</h2>
@@ -311,9 +302,6 @@ color:#ff4d88;
 <button onclick="backMenu()">Back</button>
 
 </div>
-
-
-<!-- FUNNY -->
 
 <div class="card hidden" id="funny">
 
@@ -329,9 +317,6 @@ color:#ff4d88;
 
 </div>
 
-
-<!-- COUNTDOWN -->
-
 <div class="card hidden" id="countdown">
 
 <h2>Opening your gift 🎁</h2>
@@ -339,21 +324,16 @@ color:#ff4d88;
 
 </div>
 
-
-<!-- FINAL -->
-
 <div class="card hidden" id="final">
 
 <h2 class="final-title">🎉 Happy Birthday My Love 🎂</h2>
 
 <p>
-
 Thank you for coming into my life.  
 You make everything brighter and happier.
 
 I hope this year brings you happiness, success,  
 and many beautiful moments together with me ❤️
-
 </p>
 
 <div class="final-container">
@@ -370,13 +350,14 @@ I Love You So Much 💖
 
 </div>
 
-
 <script>
 
 /* MUSIC FIX */
 
-document.body.addEventListener("click",function(){
-document.getElementById("bgmusic").play()
+const music = document.getElementById("bgmusic")
+
+document.addEventListener("click", () => {
+music.play().catch(()=>{})
 },{once:true})
 
 /* PASSWORD */

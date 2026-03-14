@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +94,41 @@ animation:float 5s linear infinite;
 100%{transform:translateY(-900px);}
 }
 
+
+/* ===== MEMORY SLIDER ===== */
+
+.slider{
+overflow:hidden;
+width:320px;
+margin:auto;
+}
+
+.slide-track{
+display:flex;
+width:calc(200px * 16);
+animation:scroll 25s linear infinite;
+}
+
+.slide-track img{
+width:180px;
+height:180px;
+object-fit:cover;
+border-radius:15px;
+margin:10px;
+}
+
+@keyframes scroll{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-50%);
+}
+
+}
+
 </style>
 </head>
 
@@ -153,9 +187,19 @@ animation:float 5s linear infinite;
 
 <h2>Our Memories 📸</h2>
 
+<div class="slider">
+<div class="slide-track">
+
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
 <img src="foto3.jpeg">
+
+<img src="foto1.jpeg">
+<img src="foto2.jpeg">
+<img src="foto3.jpeg">
+
+</div>
+</div>
 
 <p>Every moment with you is special 💕</p>
 
@@ -225,7 +269,7 @@ and many beautiful moments together with me ❤️
 
 </p>
 
-<img src="foto4.jpg">
+<img src="foto4.jpeg">
 
 <p>I Love You 💗</p>
 
@@ -234,7 +278,6 @@ and many beautiful moments together with me ❤️
 
 
 <script>
-
 
 function checkPassword(){
 
@@ -345,4 +388,3 @@ setTimeout(()=>heart.remove(),5000)
 
 </body>
 </html>
-```

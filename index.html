@@ -7,7 +7,7 @@
 <style>
 
 body{
-font-family: 'Comic Sans MS', cursive;
+font-family:'Comic Sans MS', cursive;
 text-align:center;
 background:linear-gradient(135deg,#ffb6d9,#ffcce6,#ffe6f2);
 height:100vh;
@@ -19,7 +19,7 @@ flex-direction:column;
 overflow:hidden;
 }
 
-/* sparkle background */
+/* SPARKLE BACKGROUND */
 
 body::before{
 content:"";
@@ -37,13 +37,21 @@ from{transform:translateY(0)}
 to{transform:translateY(-500px)}
 }
 
+/* CARD */
+
 .card{
 background:white;
 padding:40px;
 border-radius:25px;
 box-shadow:0 15px 40px rgba(0,0,0,0.15);
-max-width:420px;
-z-index:1;
+max-width:900px;
+z-index:2;
+animation:floatCard 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatCard{
+0%{transform:translateY(0)}
+100%{transform:translateY(-6px)}
 }
 
 button{
@@ -66,67 +74,133 @@ transform:scale(1.1);
 display:none;
 }
 
-img{
-width:200px;
-border-radius:15px;
-margin:10px;
-}
-
 .menu button{
 display:block;
-width:200px;
+width:220px;
 margin:10px auto;
 }
 
-#noBtn{
+/* PASSWORD RANDOM PHOTOS */
+
+.random-photo{
 position:absolute;
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+opacity:0.9;
+animation:spinPhoto 15s linear infinite;
 }
 
-.heart{
-position:absolute;
-color:#ff4d88;
-font-size:20px;
-animation:float 5s linear infinite;
+@keyframes spinPhoto{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
 }
 
-@keyframes float{
-0%{transform:translateY(0);}
-100%{transform:translateY(-900px);}
-}
-
-
-/* ===== MEMORY SLIDER ===== */
+/* MEMORY SLIDER */
 
 .slider{
 overflow:hidden;
-width:320px;
+width:90vw;
+max-width:1000px;
 margin:auto;
 }
 
 .slide-track{
 display:flex;
-width:calc(200px * 16);
 animation:scroll 25s linear infinite;
 }
 
 .slide-track img{
-width:180px;
-height:180px;
+width:220px;
+height:220px;
 object-fit:cover;
-border-radius:15px;
+border-radius:20px;
 margin:10px;
+transition:0.4s;
+}
+
+.slide-track img:hover{
+transform:scale(1.1) rotate(-2deg);
 }
 
 @keyframes scroll{
-
-0%{
-transform:translateX(0);
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
 }
 
-100%{
-transform:translateX(-50%);
+/* PDF */
+
+.pdf-view{
+width:100%;
+height:500px;
+border:none;
+border-radius:10px;
 }
 
+/* HEARTS */
+
+.heart{
+position:absolute;
+color:#ff4d88;
+font-size:20px;
+animation:floatHeart 6s linear infinite;
+}
+
+@keyframes floatHeart{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
+}
+
+/* CONFETTI */
+
+.confetti{
+position:absolute;
+width:8px;
+height:8px;
+border-radius:2px;
+top:-10px;
+animation:confettiFall 5s linear infinite;
+}
+
+@keyframes confettiFall{
+0%{transform:translateY(0) rotate(0)}
+100%{transform:translateY(100vh) rotate(720deg)}
+}
+
+/* FINAL PHOTOS */
+
+.final-container{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:40px;
+margin-top:20px;
+}
+
+.side-photo{
+width:170px;
+height:230px;
+object-fit:cover;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+transform:rotate(-5deg);
+}
+
+.side-photo.right{
+transform:rotate(5deg);
+}
+
+.center-photo{
+width:260px;
+border-radius:25px;
+box-shadow:0 15px 40px rgba(0,0,0,0.25);
+}
+
+.final-title{
+font-size:34px;
+color:#ff4d88;
+text-shadow:0 0 10px pink;
 }
 
 </style>
@@ -136,10 +210,22 @@ transform:translateX(-50%);
 
 <!-- MUSIC -->
 
-<audio autoplay loop>
+<audio id="bgmusic" loop>
 <source src="music.mp3">
 </audio>
 
+<button onclick="playMusic()">🎵 Start Music</button>
+
+<!-- RANDOM PASSWORD PHOTOS -->
+
+<img src="fotor1.jpeg" class="random-photo" style="top:10%;left:5%">
+<img src="fotor2.jpeg" class="random-photo" style="top:20%;left:80%">
+<img src="fotor3.jpeg" class="random-photo" style="top:70%;left:10%">
+<img src="fotor4.jpeg" class="random-photo" style="top:75%;left:85%">
+<img src="fotor5.jpeg" class="random-photo" style="top:40%;left:90%">
+<img src="fotor6.jpeg" class="random-photo" style="top:50%;left:5%">
+<img src="fotor7.jpeg" class="random-photo" style="top:15%;left:40%">
+<img src="fotor8.jpeg" class="random-photo" style="top:65%;left:55%">
 
 <!-- PASSWORD -->
 
@@ -169,11 +255,8 @@ transform:translateX(-50%);
 <div class="menu">
 
 <button onclick="showPage('memories')">📸 Our Memories</button>
-
-<button onclick="showPage('video')">🎥 Video For You</button>
-
+<button onclick="showPage('journal')">📄 About You</button>
 <button onclick="showPage('funny')">😆 Something Funny</button>
-
 <button onclick="startCountdown()">🎁 Final Surprise</button>
 
 </div>
@@ -193,10 +276,18 @@ transform:translateX(-50%);
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
 <img src="foto3.jpeg">
+<img src="foto5.jpeg">
+<img src="foto6.jpeg">
+<img src="foto7.jpeg">
+<img src="foto8.jpeg">
 
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
 <img src="foto3.jpeg">
+<img src="foto5.jpeg">
+<img src="foto6.jpeg">
+<img src="foto7.jpeg">
+<img src="foto8.jpeg">
 
 </div>
 </div>
@@ -208,17 +299,15 @@ transform:translateX(-50%);
 </div>
 
 
-<!-- VIDEO -->
+<!-- JOURNAL -->
 
-<div class="card hidden" id="video">
+<div class="card hidden" id="journal">
 
-<h2>A Message For You 🎥</h2>
+<h2>About You 📄</h2>
 
-<video width="250" controls>
-<source src="video.mp4">
-</video>
+<iframe src="jurnal.pdf" class="pdf-view"></iframe>
 
-<p>I hope this video makes you smile 💗</p>
+<p>This is something special I prepared about you ❤️</p>
 
 <button onclick="backMenu()">Back</button>
 
@@ -234,7 +323,6 @@ transform:translateX(-50%);
 <p>Do you love me?</p>
 
 <button onclick="alert('I knew it 😌💖')">YES ❤️</button>
-
 <button id="noBtn">NO</button>
 
 <button onclick="backMenu()">Back</button>
@@ -247,7 +335,6 @@ transform:translateX(-50%);
 <div class="card hidden" id="countdown">
 
 <h2>Opening your gift 🎁</h2>
-
 <h1 id="count">3</h1>
 
 </div>
@@ -257,7 +344,7 @@ transform:translateX(-50%);
 
 <div class="card hidden" id="final">
 
-<h2>Happy Birthday My Love 🎂</h2>
+<h2 class="final-title">🎉 Happy Birthday My Love 🎂</h2>
 
 <p>
 
@@ -269,15 +356,35 @@ and many beautiful moments together with me ❤️
 
 </p>
 
-<img src="foto4.jpeg">
+<div class="final-container">
 
-<p>I Love You 💗</p>
+<img src="foto9.jpeg" class="side-photo">
+
+<img src="foto4.jpeg" class="center-photo">
+
+<img src="foto10.jpeg" class="side-photo right">
+
+</div>
+
+<p style="margin-top:20px;font-size:22px">
+
+I Love You So Much 💖
+
+</p>
 
 </div>
 
 
 
 <script>
+
+/* MUSIC */
+
+function playMusic(){
+document.getElementById("bgmusic").play()
+}
+
+/* PASSWORD */
 
 function checkPassword(){
 
@@ -297,7 +404,7 @@ document.getElementById("error").innerHTML="Wrong password 😤"
 
 }
 
-
+/* PAGE NAV */
 
 function showPage(page){
 
@@ -306,11 +413,9 @@ document.getElementById(page).classList.remove("hidden")
 
 }
 
-
-
 function backMenu(){
 
-let pages=["memories","video","funny"]
+let pages=["memories","journal","funny"]
 
 pages.forEach(p=>document.getElementById(p).classList.add("hidden"))
 
@@ -318,7 +423,7 @@ document.getElementById("menu").classList.remove("hidden")
 
 }
 
-
+/* RUNAWAY BUTTON */
 
 const noBtn=document.getElementById("noBtn")
 
@@ -332,7 +437,7 @@ noBtn.style.top=y+"px"
 
 })
 
-
+/* COUNTDOWN */
 
 function startCountdown(){
 
@@ -353,17 +458,13 @@ clearInterval(timer)
 document.getElementById("countdown").classList.add("hidden")
 document.getElementById("final").classList.remove("hidden")
 
-createHearts()
-
 }
 
 },1000)
 
 }
 
-
-
-function createHearts(){
+/* GLOBAL HEARTS */
 
 setInterval(()=>{
 
@@ -374,15 +475,33 @@ heart.classList.add("heart")
 heart.innerHTML="💖"
 
 heart.style.left=Math.random()*100+"vw"
-heart.style.fontSize=(Math.random()*25+10)+"px"
+heart.style.fontSize=(Math.random()*30+10)+"px"
 
 document.body.appendChild(heart)
 
-setTimeout(()=>heart.remove(),5000)
+setTimeout(()=>heart.remove(),6000)
 
-},300)
+},800)
 
-}
+/* GLOBAL CONFETTI */
+
+setInterval(()=>{
+
+const confetti=document.createElement("div")
+
+confetti.classList.add("confetti")
+
+confetti.style.left=Math.random()*100+"vw"
+
+confetti.style.background=
+["#ff4d88","#ffd166","#06d6a0","#118ab2","#ef476f"]
+[Math.floor(Math.random()*5)]
+
+document.body.appendChild(confetti)
+
+setTimeout(()=>confetti.remove(),5000)
+
+},600)
 
 </script>
 

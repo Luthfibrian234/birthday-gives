@@ -1,0 +1,348 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
+
+<style>
+
+body{
+font-family: 'Comic Sans MS', cursive;
+text-align:center;
+background:linear-gradient(135deg,#ffb6d9,#ffcce6,#ffe6f2);
+height:100vh;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+overflow:hidden;
+}
+
+/* sparkle background */
+
+body::before{
+content:"";
+position:absolute;
+width:200%;
+height:200%;
+background-image:radial-gradient(white 1px, transparent 1px);
+background-size:40px 40px;
+opacity:0.4;
+animation:moveStars 30s linear infinite;
+}
+
+@keyframes moveStars{
+from{transform:translateY(0)}
+to{transform:translateY(-500px)}
+}
+
+.card{
+background:white;
+padding:40px;
+border-radius:25px;
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
+max-width:420px;
+z-index:1;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:15px;
+margin:8px;
+font-size:16px;
+cursor:pointer;
+background:#ff6fa5;
+color:white;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+.hidden{
+display:none;
+}
+
+img{
+width:200px;
+border-radius:15px;
+margin:10px;
+}
+
+.menu button{
+display:block;
+width:200px;
+margin:10px auto;
+}
+
+#noBtn{
+position:absolute;
+}
+
+.heart{
+position:absolute;
+color:#ff4d88;
+font-size:20px;
+animation:float 5s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+100%{transform:translateY(-900px);}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+
+<audio autoplay loop>
+<source src="music.mp3">
+</audio>
+
+
+<!-- PASSWORD -->
+
+<div class="card" id="login">
+
+<h2>Birthday Surprise 🎂</h2>
+
+<p>Enter the secret password</p>
+
+<input type="password" id="password">
+
+<br><br>
+
+<button onclick="checkPassword()">Open</button>
+
+<p id="error"></p>
+
+</div>
+
+
+<!-- MENU -->
+
+<div class="card hidden" id="menu">
+
+<h2>Choose Your Surprise 💖</h2>
+
+<div class="menu">
+
+<button onclick="showPage('memories')">📸 Our Memories</button>
+
+<button onclick="showPage('video')">🎥 Video For You</button>
+
+<button onclick="showPage('funny')">😆 Something Funny</button>
+
+<button onclick="startCountdown()">🎁 Final Surprise</button>
+
+</div>
+
+</div>
+
+
+<!-- MEMORIES -->
+
+<div class="card hidden" id="memories">
+
+<h2>Our Memories 📸</h2>
+
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+
+<p>Every moment with you is special 💕</p>
+
+<button onclick="backMenu()">Back</button>
+
+</div>
+
+
+<!-- VIDEO -->
+
+<div class="card hidden" id="video">
+
+<h2>A Message For You 🎥</h2>
+
+<video width="250" controls>
+<source src="video.mp4">
+</video>
+
+<p>I hope this video makes you smile 💗</p>
+
+<button onclick="backMenu()">Back</button>
+
+</div>
+
+
+<!-- FUNNY -->
+
+<div class="card hidden" id="funny">
+
+<h2>Important Question 😆</h2>
+
+<p>Do you love me?</p>
+
+<button onclick="alert('I knew it 😌💖')">YES ❤️</button>
+
+<button id="noBtn">NO</button>
+
+<button onclick="backMenu()">Back</button>
+
+</div>
+
+
+<!-- COUNTDOWN -->
+
+<div class="card hidden" id="countdown">
+
+<h2>Opening your gift 🎁</h2>
+
+<h1 id="count">3</h1>
+
+</div>
+
+
+<!-- FINAL -->
+
+<div class="card hidden" id="final">
+
+<h2>Happy Birthday My Love 🎂</h2>
+
+<p>
+
+Thank you for coming into my life.  
+You make everything brighter and happier.
+
+I hope this year brings you happiness, success,  
+and many beautiful moments together with me ❤️
+
+</p>
+
+<img src="foto4.jpg">
+
+<p>I Love You 💗</p>
+
+</div>
+
+
+
+<script>
+
+
+function checkPassword(){
+
+let pass=document.getElementById("password").value
+
+if(pass==="1234"){
+
+document.getElementById("login").classList.add("hidden")
+document.getElementById("menu").classList.remove("hidden")
+
+}
+else{
+
+document.getElementById("error").innerHTML="Wrong password 😤"
+
+}
+
+}
+
+
+
+function showPage(page){
+
+document.getElementById("menu").classList.add("hidden")
+document.getElementById(page).classList.remove("hidden")
+
+}
+
+
+
+function backMenu(){
+
+let pages=["memories","video","funny"]
+
+pages.forEach(p=>document.getElementById(p).classList.add("hidden"))
+
+document.getElementById("menu").classList.remove("hidden")
+
+}
+
+
+
+const noBtn=document.getElementById("noBtn")
+
+noBtn.addEventListener("mouseover",function(){
+
+let x=Math.random()*window.innerWidth
+let y=Math.random()*window.innerHeight
+
+noBtn.style.left=x+"px"
+noBtn.style.top=y+"px"
+
+})
+
+
+
+function startCountdown(){
+
+document.getElementById("menu").classList.add("hidden")
+document.getElementById("countdown").classList.remove("hidden")
+
+let count=3
+
+let timer=setInterval(function(){
+
+count--
+document.getElementById("count").innerHTML=count
+
+if(count===0){
+
+clearInterval(timer)
+
+document.getElementById("countdown").classList.add("hidden")
+document.getElementById("final").classList.remove("hidden")
+
+createHearts()
+
+}
+
+},1000)
+
+}
+
+
+
+function createHearts(){
+
+setInterval(()=>{
+
+const heart=document.createElement("div")
+
+heart.classList.add("heart")
+
+heart.innerHTML="💖"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.fontSize=(Math.random()*25+10)+"px"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),5000)
+
+},300)
+
+}
+
+</script>
+
+</body>
+</html>
+```

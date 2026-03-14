@@ -207,8 +207,6 @@ color:#ff4d88;
 
 <body>
 
-<!-- MUSIC -->
-
 <audio id="bgmusic" loop>
 <source src="music.mp3">
 </audio>
@@ -236,16 +234,14 @@ color:#ff4d88;
 
 </div>
 
+<!-- RANDOM PHOTOS (sudah dipindah supaya tidak nutup card) -->
 
-<!-- RANDOM PASSWORD PHOTOS -->
-
-<img src="fotor1.jpeg" class="random-photo" style="top:10%;left:5%">
-<img src="fotor2.jpeg" class="random-photo" style="top:20%;left:80%">
-<img src="fotor3.jpeg" class="random-photo" style="top:70%;left:10%">
-<img src="fotor4.jpeg" class="random-photo" style="top:75%;left:85%">
-<img src="fotor5.jpeg" class="random-photo" style="top:40%;left:90%">
-<img src="fotor6.jpeg" class="random-photo" style="top:50%;left:5%">
-
+<img src="foto1.jpeg" class="random-photo" style="top:5%;left:5%">
+<img src="foto2.jpeg" class="random-photo" style="top:5%;right:5%">
+<img src="foto3.jpeg" class="random-photo" style="bottom:5%;left:5%">
+<img src="foto4.jpeg" class="random-photo" style="bottom:5%;right:5%">
+<img src="foto5.jpeg" class="random-photo" style="top:45%;left:2%">
+<img src="foto6.jpeg" class="random-photo" style="top:45%;right:2%">
 
 <!-- MENU -->
 
@@ -280,8 +276,6 @@ color:#ff4d88;
 <img src="foto4.jpeg">
 <img src="foto5.jpeg">
 <img src="foto6.jpeg">
-<img src="foto7.jpeg">
-<img src="foto8.jpeg">
 
 <img src="foto1.jpeg">
 <img src="foto2.jpeg">
@@ -289,8 +283,6 @@ color:#ff4d88;
 <img src="foto4.jpeg">
 <img src="foto5.jpeg">
 <img src="foto6.jpeg">
-<img src="foto7.jpeg">
-<img src="foto8.jpeg">
 
 </div>
 </div>
@@ -321,13 +313,14 @@ color:#ff4d88;
 
 <div class="card hidden" id="funny">
 
-<h2>Important Question 😆</h2>
+<h2>Important Questions 😆</h2>
 
-<p>Do you love me?</p>
+<p id="question">Do you love me?</p>
 
-<button onclick="alert('I knew it 😌💖')">YES ❤️</button>
-<button id="noBtn">NO</button>
+<button onclick="yesAnswer()">YES ❤️</button>
+<button onclick="noAnswer()">NO</button>
 
+<br>
 <button onclick="backMenu()">Back</button>
 
 </div>
@@ -361,11 +354,9 @@ and many beautiful moments together with me ❤️
 
 <div class="final-container">
 
-<img src="foto9.jpeg" class="side-photo">
-
+<img src="foto5.jpeg" class="side-photo">
 <img src="foto4.jpeg" class="center-photo">
-
-<img src="foto10.jpeg" class="side-photo right">
+<img src="foto6.jpeg" class="side-photo right">
 
 </div>
 
@@ -423,20 +414,36 @@ document.getElementById("menu").classList.remove("hidden")
 
 }
 
-/* RUNAWAY BUTTON */
+/* FUNNY QUESTIONS */
 
-const noBtn=document.getElementById("noBtn")
+let q=0
 
-noBtn.addEventListener("mouseover",function(){
+const questions=[
+"Do you love me?",
+"Am I your favorite person?",
+"Will you stay with me forever?"
+]
 
-let x=Math.random()*window.innerWidth
-let y=Math.random()*window.innerHeight
+function yesAnswer(){
 
-noBtn.style.position="absolute"
-noBtn.style.left=x+"px"
-noBtn.style.top=y+"px"
+q++
 
-})
+if(q<questions.length){
+document.getElementById("question").innerText=questions[q]
+}
+else{
+alert("I knew it 😌💖")
+q=0
+document.getElementById("question").innerText=questions[0]
+}
+
+}
+
+function noAnswer(){
+
+alert("mang eakkk.....")
+
+}
 
 /* COUNTDOWN */
 
@@ -459,8 +466,6 @@ clearInterval(timer)
 document.getElementById("countdown").classList.add("hidden")
 document.getElementById("final").classList.remove("hidden")
 
-/* HIDE RANDOM PHOTOS */
-
 document.querySelectorAll(".random-photo").forEach(e=>e.style.display="none")
 
 }
@@ -469,7 +474,7 @@ document.querySelectorAll(".random-photo").forEach(e=>e.style.display="none")
 
 }
 
-/* GLOBAL HEARTS */
+/* HEARTS */
 
 setInterval(()=>{
 
